@@ -1,6 +1,9 @@
 remna_install_path: /opt/remnawave
 remna_sub_page: false
 
+remna_version: latest
+remna_sub_version: latest
+
 remna_sub_title: ""
 remna_sub_description: ""
 ### APP ###

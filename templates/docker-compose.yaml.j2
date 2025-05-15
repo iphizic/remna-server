@@ -20,7 +20,7 @@ services:
             retries: 3
 
     remnawave:
-        image: remnawave/backend:latest
+        image: remnawave/backend:{{ remna_version }}
         container_name: 'remnawave'
         hostname: remnawave
         restart: always
@@ -51,7 +51,7 @@ services:
 
 {% if remna_sub_page %}
     remnawave-subscription-page:
-        image: remnawave/subscription-page:latest
+        image: remnawave/subscription-page:{{ remna_sub_version }}
         container_name: remnawave-subscription-page
         hostname: remnawave-subscription-page
         restart: always
