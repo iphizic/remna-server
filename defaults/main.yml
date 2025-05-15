@@ -1,0 +1,37 @@
+remna_install_path: /opt/remnawave
+remna_sub_page: false
+
+remna_sub_title: ""
+remna_sub_description: ""
+### APP ###
+remna_app_port: 3000
+remna_metric_port: 3001
+
+remna_hwid_device_limit: "false"
+remna_hwid_fallback_device_limit: 5
+remna_hwid_announce: "You have reached the maximum number of devices for your subscription."
+
+### API ###
+# Possible values: max (start instances on all cores), number (start instances on number of cores), -1 (start instances on all cores - 1)
+# !!! Do not set this value more that physical cores count in your machine !!!
+remna_instance_count: 1
+
+### DATABASE ###
+# FORMAT: postgresql://{user}:{password}@{host}:{port}/{database}
+remna_db_user: postgres
+remna_db_password: postgres
+remna_db_database: postgres
+remna_db_port: 5432
+remna_db_host: remnawave-db
+remna_db_url: "postgresql://{{ remna_db_user }}:{{ remna_db_password }}@remnawave-db:{{ remna_db_port }}/{{ remna_db_database }}"
+
+### REDIS ###
+remna_redis_host: remnawave-redis
+remna_redis_port: 6379
+
+### JWT ###
+### CHANGE DEFAULT VALUES ###
+#remna_jwt_auth_secret: change_me
+#remna_jvt_api_token_secret: change_me
+
+

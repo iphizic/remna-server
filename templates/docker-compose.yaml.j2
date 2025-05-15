@@ -1,0 +1,77 @@
+services:
+    {{ remna_db_host }}:
+        image: postgres:17
+        container_name: {{ remna_db_host }}
+        hostname: {{ remna_db_host }}
+        restart: always
+        environment:
+            - POSTGRES_USER={{ remna_db_user }}
+            - POSTGRES_PASSWORD={{ remna_db_password }}
+            - POSTGRES_DB={{ remna_db_database }}
+            - TZ=UTC
+        volumes:
+            - {{ remna_install_path }}/postgresql:/var/lib/postgresql/data
+        networks:
+            - remnawave-network
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U {{ remna_db_user }} -d {{ remna_db_database }}']
+            interval: 3s
+            timeout: 10s
+            retries: 3
+
+    remnawave:
+        image: remnawave/backend:latest
+        container_name: 'remnawave'
+        hostname: remnawave
+        restart: always
+        env_file:
+            - env
+        networks:
+            - remnawave-network
+        depends_on:
+            {{ remna_db_host }}:
+                condition: service_healthy
+            {{ remna_redis_host }}:
+                condition: service_healthy
+
+    {{ remna_redis_host }}:
+        image: valkey/valkey:8.0.2-alpine
+        container_name: {{ remna_redis_host }}
+        hostname: {{ remna_redis_host }}
+        restart: always
+        networks:
+            - remnawave-network
+        volumes:
+            - {{ remna_redis_host }}-data:/data
+        healthcheck:
+            test: ['CMD', 'valkey-cli', 'ping']
+            interval: 3s
+            timeout: 10s
+            retries: 3
+
+{% if remna_sub_page %}
+    remnawave-subscription-page:
+        image: remnawave/subscription-page:latest
+        container_name: remnawave-subscription-page
+        hostname: remnawave-subscription-page
+        restart: always
+        environment:
+            - REMNAWAVE_PANEL_URL=http://remnawave:3000
+            - APP_PORT=3010
+            - META_TITLE={{ remna_sub_title }}
+            - META_DESCRIPTION={{ remna_sub_description }}
+        networks:
+            - remnawave-network
+{% endif %}
+
+networks:
+    remnawave-network:
+        name: remnawave-network
+        driver: bridge
+        external: false
+
+volumes:
+    {{ remna_redis_host }}-data:
+        driver: local
+        external: false
+        name: {{ remna_redis_host }}-data
