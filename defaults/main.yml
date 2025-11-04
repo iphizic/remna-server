@@ -38,7 +38,7 @@ remna_redis_port: 6379
 #remna_jvt_api_token_secret: change_me
 
 ### WEBHOOK ###
-remna_webhook_enabled: false
+remna_webhook_enabled: "false"
 ### Only https:// is allowed
 remna_webhook_url: https://webhook.site/1234567890
 ### This secret is used to sign the webhook payload, must be exact 64 characters. Only a-z, 0-9, A-Z are allowed.
