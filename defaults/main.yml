@@ -43,3 +43,9 @@ remna_webhook_enabled: "false"
 remna_webhook_url: https://webhook.site/1234567890
 ### This secret is used to sign the webhook payload, must be exact 64 characters. Only a-z, 0-9, A-Z are allowed.
 remna_webhook_secret: vsmu67Kmg6R8FjIOF1WUY8LWBHie4scdEqrfsKmyf4IAf8dY3nFS0wwYHkhh6ZvQ
+
+### TELEGRAM ###
+remna_telegram_enabled: "false"
+remna_telegram_token: change_me
+remna_telegram_admin: change_me
+remna_telegram_notify_chat: change_me
